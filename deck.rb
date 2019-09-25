@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Deck
-  include Symbolics
   attr_reader :deck
   def initialize
     @cards = create_deck
@@ -30,6 +29,6 @@ class Deck
   private
 
   def create_deck
-    self.class.suites.product(self.class.ranks).collect { |s, r| Card.new(s, r) }.shuffle
+    Symbolics.suites.product(Symbolics.ranks).collect { |s, r| Card.new(s, r) }.shuffle
   end
 end

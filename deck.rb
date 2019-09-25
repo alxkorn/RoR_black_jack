@@ -12,8 +12,14 @@ class Deck
     @deck.push(*cards)
   end
 
-  def give_cards(amount)
+  def give_top_cards(amount)
     @deck.pop(amount)
+  end
+
+  def give_cards(indexes)
+    cards = @deck.values_at(*indexes)
+    @deck.delete_if {|card| cards.include? card}
+    cards
   end
 
   def reset

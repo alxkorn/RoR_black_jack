@@ -1,38 +1,40 @@
+# frozen_string_literal: true
+
 class Player
-  attr_reader :name
-  def initialize(name, default_balance)
+  attr_reader :name, :balance
+  def initialize(name, balance, bank, deck)
     @name = name
     @hand = Hand.new
-    @bank = Bank.new(default_balance)
+    @bank = bank
+    @deck = deck
+    @balance = balance
   end
 
-  def give_money(amount)
-    @bank.withdraw(amount)
+  def bet(amount)
+    remaining = @balance - amount
+    raise NoFundsError, 'Insufficient funds' unless remaining.positive?
+
+    @balance = remaining
+    @bank.receive_bet(self, amount)
   end
 
-  def balance
-    @bank.balance
+  def receive_money(amount)
+    @balance += amount
+  end
+
+  def deal(amount)
+    @hand.accept_cards(@deck.deal_top_cards(amount))
   end
 
   def cards
-    @hand.deck
+    @hand.cards
   end
 
-  def take_money(amount)
-    @bank.add(amount)
-  end
-
-  def take_cards(cards)
-    @hand.accept_cards(cards)
-  end
-
-  def give_top_cards(amount)
-    @hand.give_top_cards(amount)
-  end
-
-  def give_cards(indexes)
-    @hand.give_cards(indexes)
-  end
+  # def release_hand
+  #   cards = @hand.cards
+  #   reset_hand
+  #   cards
+  # end
 
   def reset_hand
     @hand.reset

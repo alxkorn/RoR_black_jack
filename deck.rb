@@ -4,27 +4,27 @@ class Deck
   include Symbolics
   attr_reader :deck
   def initialize
-    @deck = create_deck
+    @cards = create_deck
   end
 
   def accept_cards(cards)
     cards.each { |card| raise ArgumentError, "#{card} is not a Card" unless card.is_a? Card }
 
-    @deck.push(*cards)
+    @cards.push(*cards)
   end
 
-  def give_top_cards(amount)
-    @deck.pop(amount)
+  def deal_top_cards(amount)
+    @cards.pop(amount)
   end
 
-  def give_cards(indexes)
-    cards = @deck.values_at(*indexes)
-    @deck.delete_if {|card| cards.include? card}
+  def deal_cards(indexes)
+    cards = @cards.values_at(*indexes)
+    @cards.delete_if {|card| cards.include? card}
     cards
   end
 
   def reset
-    @deck = create_deck
+    @cards = create_deck
   end
 
   private

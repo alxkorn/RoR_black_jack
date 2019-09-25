@@ -2,6 +2,7 @@
 
 class Deck
   include Symbolics
+  attr_reader :deck
   def initialize
     @deck = create_deck
   end

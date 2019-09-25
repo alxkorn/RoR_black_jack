@@ -1,0 +1,2 @@
+class NoFundsError < StandardError
+end

@@ -16,6 +16,10 @@ class Deck
     @deck.pop(amount)
   end
 
+  def reset
+    @deck = create_deck
+  end
+
   private
 
   def create_deck

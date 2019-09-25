@@ -1,4 +1,5 @@
 class Player
+  attr_reader :name
   def initialize(name, default_balance)
     @name = name
     @hand = Hand.new
@@ -7,6 +8,14 @@ class Player
 
   def give_money(amount)
     @bank.withdraw(amount)
+  end
+
+  def balance
+    @bank.balance
+  end
+
+  def cards
+    @hand.deck
   end
 
   def take_money(amount)

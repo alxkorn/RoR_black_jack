@@ -1,10 +1,24 @@
 # frozen_string_literal: true
 
 class Deck
-  attr_reader :deck
+  include Symbolics
   def initialize
-    @suites = ['♣', '♦', '♥', '♠']
-    @ranks = [*'2'..'10'] + %w[J Q K A]
-    @deck = @suites.product(@ranks).collect { |s, r| { 'suite' => s, 'rank' => r } }
+    @deck = create_deck
+  end
+
+  def accept_cards(cards)
+    cards.each { |card| raise ArgumentError, "#{card} is not a Card" unless card.is_a? Card }
+
+    @deck.push(*cards)
+  end
+
+  def give_cards(amount)
+    @deck.pop(amount)
+  end
+
+  private
+
+  def create_deck
+    self.class.suites.product(self.class.ranks).collect { |s, r| Card.new(s, r) }.shuffle
   end
 end

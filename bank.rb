@@ -6,6 +6,11 @@ class Bank
     @balances = []
   end
 
+  def balance_of(player)
+    player = find_player(player)
+    player.balance
+  end
+
   def register_player(player, balance)
     raise ArgumentError, 'player should be of type Player' unless player.is_a? Player
 

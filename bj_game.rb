@@ -40,15 +40,16 @@ class BJGame
   def actions
     action_list = []
     condition = @player.cards.size < const_max_cards
-    action_list << { 'messgae' => 'Взять карту', 'action' => :player_hit } if condition
-    action_list << { 'messgae' => 'Провустить ход', 'action' => :player_pass }
-    action_list << { 'messgae' => 'Открыть карты', 'action' => :player_open }
+    action_list << { 'message' => 'Взять карту', 'action' => :player_hit } if condition
+    action_list << { 'message' => 'Провустить ход', 'action' => :player_pass }
+    action_list << { 'message' => 'Открыть карты', 'action' => :player_open }
     action_list
   end
 
   def reset_round
     @player.reset_hand
     @dealer.reset_hand
+    @deck.reset
     @player.deal(@deck, const_new_round_cards_num)
     @dealer.deal(@deck, const_new_round_cards_num)
     @player.bet(@bank, const_default_bet)
@@ -75,8 +76,6 @@ class BJGame
 
   def player_open
     @bank.release_win(winner)
-    @player.reset_hand
-    @dealer.reset_hand
     @round_playing = false
     @interface.show_info(info)
     @interface.inform_winner(winner)

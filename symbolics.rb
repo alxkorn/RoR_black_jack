@@ -1,15 +1,31 @@
+# frozen_string_literal: true
+
 module Symbolics
-  def self.included(base)
-    base.extend(ClassMethods)
+  def suites
+    ['♣', '♦', '♥', '♠']
   end
 
-  module ClassMethods
-    def suites
-      ['♣', '♦', '♥', '♠']
-    end
+  def ranks
+    numeric_ranks + [jack, queen, king, ace]
+  end
 
-    def ranks
-      [*'2'..'10'] + %w[J Q K A]
-    end
+  def numeric_ranks
+    [*'2'..'10']
+  end
+
+  def jack
+    'J'
+  end
+
+  def queen
+    'Q'
+  end
+
+  def king
+    'Q'
+  end
+
+  def ace
+    'A'
   end
 end

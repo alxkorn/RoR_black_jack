@@ -1,9 +1,10 @@
 class Hand < Deck
+  attr_reader :cards
   def initialize
-    @deck = []
+    @cards = []
   end
 
   def reset
-    @deck = []
+    @cards = []
   end
 end

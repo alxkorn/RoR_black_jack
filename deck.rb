@@ -4,32 +4,38 @@ class Deck
   include Symbolics
   attr_reader :deck
   def initialize
-    @deck = create_deck
+    @cards = create_deck
   end
 
   def accept_cards(cards)
     cards.each { |card| raise ArgumentError, "#{card} is not a Card" unless card.is_a? Card }
 
-    @deck.push(*cards)
+    @cards.push(*cards)
   end
 
-  def give_top_cards(amount)
-    @deck.pop(amount)
+  def deal_top_cards(amount)
+    @cards.pop(amount)
   end
 
-  def give_cards(indexes)
-    cards = @deck.values_at(*indexes)
-    @deck.delete_if {|card| cards.include? card}
+  # def deal_top_cards_to(amount, player)
+  #   raise ArgumentError, 'player should be of type Player' unless player.is_a? Player
+
+  #   player.hand.accept_cards(@cards.pop(amount))
+  # end
+
+  def deal_cards(indexes)
+    cards = @cards.values_at(*indexes)
+    @cards.delete_if { |card| cards.include? card }
     cards
   end
 
   def reset
-    @deck = create_deck
+    @cards = create_deck
   end
 
   private
 
   def create_deck
-    self.class.suites.product(self.class.ranks).collect { |s, r| Card.new(s, r) }.shuffle
+    suites.product(ranks).collect { |s, r| Card.new(s, r) }.shuffle
   end
 end

@@ -6,8 +6,8 @@ class Card
   def initialize(suite, rank)
     message_s = "#{suite} is not allowed"
     message_r = "#{rank} is not allowed"
-    raise ArgumentError, message_s unless self.class.suites.include? suite
-    raise ArgumentError, message_r unless self.class.ranks.include? rank
+    raise ArgumentError, message_s unless suites.include? suite
+    raise ArgumentError, message_r unless ranks.include? rank
 
     @suite = suite
     @rank = rank

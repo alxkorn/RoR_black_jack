@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 module BJConstants
+  def const_default_balance
+    100
+  end
+
+  def const_default_bet
+    10
+  end
+
   def const_optimal_value
     17
   end

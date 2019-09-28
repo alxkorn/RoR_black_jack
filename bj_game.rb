@@ -6,11 +6,11 @@ class BJGame
     @interface = BJInterface.new
     name = @interface.request_name
     @player = Player.new(name)
-    @dealer = Delaer.new
+    @dealer = Dealer.new
     @deck = Deck.new
     @bank = Bank.new
-    @bank.register_player(player, const_default_balance)
-    @bank.register_player(dealer, const_default_balance)
+    @bank.register_player(@player, const_default_balance)
+    @bank.register_player(@dealer, const_default_balance)
     @round_playing = true
     @end_game = false
   end
@@ -32,7 +32,7 @@ class BJGame
       send action
       break unless playing?
 
-      @dealer.play_round
+      @dealer.play_round(@deck)
       detect_end
     end
   end
@@ -41,12 +41,13 @@ class BJGame
     action_list = []
     condition = @player.cards.size < const_max_cards
     action_list << { 'message' => 'Взять карту', 'action' => :player_hit } if condition
-    action_list << { 'message' => 'Провустить ход', 'action' => :player_pass }
+    action_list << { 'message' => 'Пропустить ход', 'action' => :player_pass }
     action_list << { 'message' => 'Открыть карты', 'action' => :player_open }
     action_list
   end
 
   def reset_round
+    @round_playing = true
     @player.reset_hand
     @dealer.reset_hand
     @deck.reset
@@ -68,16 +69,16 @@ class BJGame
   end
 
   def player_hit
-    @player.deal(deck, const_take_cards_num)
+    @player.deal(@deck, const_take_cards_num)
     @interface.show_info(info)
   end
 
   def player_pass; end
 
   def player_open
-    @bank.release_win(winner)
     @round_playing = false
     @interface.show_info(info)
+    @bank.release_win(winner)
     @interface.inform_winner(winner)
   end
 

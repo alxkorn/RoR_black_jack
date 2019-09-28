@@ -60,7 +60,7 @@ class Bank
   end
 
   def find_bet_record(player)
-    bet_record = @bet_records.find { |br| br[0] == player }
+    bet_record = @bet_records.find { |br| br[0].player == player }
     raise PlayerNotFoundError if bet_record.nil?
 
     bet_record

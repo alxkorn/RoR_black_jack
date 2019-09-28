@@ -30,7 +30,7 @@ class Player
   def cards_string
     cards_str = ''
     @hand.cards.each do |card|
-      [cards_str, card.suite + card.rank].join(' ')
+      cards_str = [cards_str, card.suite + card.rank].join(' ')
     end
     cards_str
   end

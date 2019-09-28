@@ -6,7 +6,7 @@ class BJInterface
     actions.each_with_index do |act_record, index|
       puts [(index + 1).to_s, act_record['message']].join(' ')
     end
-    index = gets.chomp
+    index = gets.chomp.to_i - 1
     action = actions[index]['action']
     raise InvalidActionError, 'Недопустимое действие' if action.nil?
 
@@ -29,12 +29,16 @@ class BJInterface
   end
 
   def inform_winner(winner)
-    puts "Победил #{winner.name}"
+    if winner.nil?
+      puts 'Ничья'
+    else
+      puts "Победил #{winner.name}"
+    end
   end
 
   def play_again?
-    actions = [{ 'message' => 'Да', 'action' => true },
-               { 'message' => 'Нет', 'action' => false }]
+    actions = [{ 'message' => 'Да', 'action' => false }, # это значение пойдет в переменную @end_game
+               { 'message' => 'Нет', 'action' => true }]
     begin
       puts 'Сыграть заново?'
       answer = choose_action(actions)
@@ -49,7 +53,7 @@ class BJInterface
     dealer = info['dealer']
     player = info['player']
     bank = info['bank']
-    playing = info['playing']
+    playing = info['round_playing']
     if playing
       dealer_cards = '*' * dealer.cards.size
       dealer_value = '?'
@@ -69,8 +73,8 @@ class BJInterface
     puts "Карты: #{dealer_cards} | Очки: #{dealer_value}"
     puts '-' * 50
     puts player.name
-    puts "Баланс: #{dealer_balance} | Ставка: #{dealer_bet}"
-    puts "Карты: #{dealer_cards} | Очки: #{dealer_value}"
+    puts "Баланс: #{player_balance} | Ставка: #{player_bet}"
+    puts "Карты: #{player_cards} | Очки: #{player_value}"
     puts '=' * 50
   end
 end

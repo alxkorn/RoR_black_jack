@@ -27,6 +27,14 @@ class Player
     @hand.cards
   end
 
+  def cards_string
+    cards_str = ''
+    @hand.cards.each do |card|
+      [cards_str, card.suite + card.rank].join(' ')
+    end
+    cards_str
+  end
+
   def hand_value
     return 0 if cards.empty?
 

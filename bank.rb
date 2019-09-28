@@ -14,6 +14,11 @@ class Bank
     find_bet_record(player)[1]
   end
 
+  def replenish_balance(player, amount)
+    player_record = find_player_record(player)
+    player_record.receive_money(amount)
+  end
+
   def register_player(player, balance)
     raise ArgumentError, 'player should be of type Player' unless player.is_a? Player
 

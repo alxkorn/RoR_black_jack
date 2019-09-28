@@ -53,8 +53,18 @@ class BJGame
     @deck.reset
     @player.deal(@deck, const_new_round_cards_num)
     @dealer.deal(@deck, const_new_round_cards_num)
-    @player.bet(@bank, const_default_bet)
-    @dealer.bet(@bank, const_default_bet)
+    begin
+      @player.bet(@bank, const_default_bet)
+    rescue NoFundsError
+      @interface.funds_warning(@player)
+      exit(0)
+    end
+    begin
+      @dealer.bet(@bank, const_default_bet)
+    rescue NoFundsError
+      @interface.funds_warning(@dealer)
+      exit(0)
+    end
   end
 
   def playing?

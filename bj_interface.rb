@@ -36,6 +36,10 @@ class BJInterface
     end
   end
 
+  def funds_warning(player)
+    puts "Нехватка средств у #{player.name}"
+  end
+
   def play_again?
     actions = [{ 'message' => 'Да', 'action' => false }, # это значение пойдет в переменную @end_game
                { 'message' => 'Нет', 'action' => true }]

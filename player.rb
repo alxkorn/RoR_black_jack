@@ -5,6 +5,7 @@ class Player
   def initialize(name)
     @name = name
     @hand = Hand.new
+    @calculator = BJCalculator.new
     # @bank = bank
     # @deck = deck
     # @balance = PlayerBalance.new(balance)
@@ -20,6 +21,12 @@ class Player
 
   def cards
     @hand.cards
+  end
+
+  def hand_value
+    return 0 if cards.empty?
+
+    @calculator.calculate_value(cards)
   end
 
   # def release_hand

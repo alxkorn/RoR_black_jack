@@ -11,7 +11,7 @@ class Player
     # @balance = PlayerBalance.new(balance)
   end
 
-  def bet(amount, bank)
+  def bet(bank, amount)
     bank.receive_bet(self, amount)
   end
 

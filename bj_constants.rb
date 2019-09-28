@@ -1,6 +1,6 @@
 module BJConstants
   
-  def const_high_rnak_value
+  def const_high_rank_value
     10
   end
 

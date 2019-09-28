@@ -1,5 +1,4 @@
 class Dealer < Player
-  include BJConstants
   def initialize
     name = 'Dealer'
     super(name)

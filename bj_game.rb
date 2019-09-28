@@ -37,6 +37,15 @@ class BJGame
     end
   end
 
+  def actions
+    action_list = []
+    condition = @player.cards.size < const_max_cards
+    action_list << { 'messgae' => 'Взять карту', 'action' => :player_hit } if condition
+    action_list << { 'messgae' => 'Провустить ход', 'action' => :player_pass }
+    action_list << { 'messgae' => 'Открыть карты', 'action' => :player_open }
+    action_list
+  end
+
   def reset_round
     @player.reset_hand
     @dealer.reset_hand

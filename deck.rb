@@ -16,9 +16,15 @@ class Deck
     @cards.pop(amount)
   end
 
+  # def deal_top_cards_to(amount, player)
+  #   raise ArgumentError, 'player should be of type Player' unless player.is_a? Player
+
+  #   player.hand.accept_cards(@cards.pop(amount))
+  # end
+
   def deal_cards(indexes)
     cards = @cards.values_at(*indexes)
-    @cards.delete_if {|card| cards.include? card}
+    @cards.delete_if { |card| cards.include? card }
     cards
   end
 

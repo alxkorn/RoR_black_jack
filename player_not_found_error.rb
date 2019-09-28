@@ -1,0 +1,2 @@
+class PlayerNotFoundError < StandardError
+end

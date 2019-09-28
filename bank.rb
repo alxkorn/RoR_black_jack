@@ -7,8 +7,11 @@ class Bank
   end
 
   def balance_of(player)
-    player = find_player(player)
-    player.balance
+    find_player_record(player).balance
+  end
+
+  def bet_of(player)
+    find_bet_record(player)[1]
   end
 
   def register_player(player, balance)
@@ -21,7 +24,7 @@ class Bank
     raise ArgumentError, "#{player} is not a Player" unless player.is_a? Player
     raise ArgumentError, 'Amount should be Numeric' unless amount.is_a? Numeric
 
-    player_record = find_player(player)
+    player_record = find_player_record(player)
     @bet_records << [player_record, player_record.give_money(amount)]
   end
 
@@ -29,7 +32,7 @@ class Bank
     if winner.nil?
       return_bets
     else
-      player_record = find_player(winner)
+      player_record = find_player_record(winner)
       amount = @bet_records.map { |row| row[1] }.sum
       player_record.receive_money(amount)
       reset_bet_records
@@ -49,10 +52,17 @@ class Bank
     @bet_records = []
   end
 
-  def find_player(player)
+  def find_player_record(player)
     player_record = @balances.find { |pr| pr.player == player }
     raise PlayerNotFoundError if player_record.nil?
 
     player_record
+  end
+
+  def find_bet_record(player)
+    bet_record = @bet_records.find { |br| br[0] == player }
+    raise PlayerNotFoundError if bet_record.nil?
+
+    bet_record
   end
 end

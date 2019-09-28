@@ -21,10 +21,14 @@ class Bank
   end
 
   def release_win(winner)
-    player_record = find_player(winner)
-    amount = @bet_records.map { |row| row[1] }.sum
-    player_record.receive_money(amount)
-    reset_bet_records
+    if winner.nil?
+      return_bets
+    else
+      player_record = find_player(winner)
+      amount = @bet_records.map { |row| row[1] }.sum
+      player_record.receive_money(amount)
+      reset_bet_records
+    end
   end
 
   def return_bets

@@ -1,31 +1,31 @@
 # frozen_string_literal: true
 
 module Symbolics
-  def self.suites
+  def suites
     ['♣', '♦', '♥', '♠']
   end
 
-  def self.ranks
+  def ranks
     numeric_ranks + [jack, queen, king, ace]
   end
 
-  def self.numeric_ranks
+  def numeric_ranks
     [*'2'..'10']
   end
 
-  def self.jack
+  def jack
     'J'
   end
 
-  def self.queen
+  def queen
     'Q'
   end
 
-  def self.king
+  def king
     'Q'
   end
 
-  def self.ace
+  def ace
     'A'
   end
 end

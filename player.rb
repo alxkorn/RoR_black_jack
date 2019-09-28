@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Player
+  include BJConstants
   attr_reader :name, :hand
   def initialize(name)
     @name = name
@@ -16,6 +17,9 @@ class Player
   end
 
   def deal(deck, amount)
+    message = "Hand should have no more than #{const_max_cards} cards"
+    raise CardLimitError, message if cards.size >= const_max_cards
+
     @hand.accept_cards(deck.deal_top_cards(amount))
   end
 

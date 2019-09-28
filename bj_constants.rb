@@ -1,5 +1,22 @@
+# frozen_string_literal: true
+
 module BJConstants
-  
+  def const_optimal_value
+    17
+  end
+
+  def const_new_round_cards_num
+    2
+  end
+
+  def const_take_cards_num
+    1
+  end
+
+  def const_max_cards
+    3
+  end
+
   def const_high_rank_value
     10
   end

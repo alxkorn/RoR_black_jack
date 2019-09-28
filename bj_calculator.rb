@@ -12,7 +12,7 @@ class BJCalculator
 
   def calculate_value(cards)
     value = 0
-    ace_cards, other_cards = cards.partition { |card| card.rank == Symbolics.ace }
+    ace_cards, other_cards = cards.partition { |card| card.rank == ace }
     other_cards.each { |card| value += @value_chart[card.rank] }
     ace_cards.each do |_card|
       value += if value + const_ace_value_high <= const_black_jack

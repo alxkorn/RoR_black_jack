@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Bank
+  DEFAULT_BALANCE = 100
   def initialize
     @bet_records = []
     @balances = []
@@ -19,7 +20,7 @@ class Bank
     player_record.receive_money(amount)
   end
 
-  def register_player(player, balance)
+  def register_player(player, balance=DEFAULT_BALANCE)
     raise ArgumentError, 'player should be of type Player' unless player.is_a? Player
 
     @balances << PlayerBalance.new(player, balance)

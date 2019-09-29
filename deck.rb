@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Deck
-  include Symbolics
   attr_reader :deck
   def initialize
     @cards = create_deck
@@ -17,12 +16,6 @@ class Deck
     @cards.pop(amount)
   end
 
-  # def deal_top_cards_to(amount, player)
-  #   raise ArgumentError, 'player should be of type Player' unless player.is_a? Player
-
-  #   player.hand.accept_cards(@cards.pop(amount))
-  # end
-
   def deal_cards(indexes)
     cards = @cards.values_at(*indexes)
     @cards.delete_if { |card| cards.include? card }
@@ -36,6 +29,6 @@ class Deck
   private
 
   def create_deck
-    suites.product(ranks).collect { |s, r| Card.new(s, r) }.shuffle
+    Card.suites.product(Card.ranks).collect { |s, r| Card.new(s, r) }.shuffle
   end
 end

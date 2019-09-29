@@ -1,0 +1,2 @@
+class CardsLimitError < StandardError
+end

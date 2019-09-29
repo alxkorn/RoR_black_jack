@@ -28,12 +28,24 @@ class Card
 
   attr_reader :suite, :rank
   def initialize(suite, rank)
-    message_s = "#{suite} is not allowed"
-    message_r = "#{rank} is not allowed"
-    raise ArgumentError, message_s unless SUITES.include? suite
-    raise ArgumentError, message_r unless RANKS.include? rank
-
     @suite = suite
     @rank = rank
+    validate!
+  end
+
+  private
+
+  def validate!
+    message_s = "#{@suite} is not allowed"
+    message_r = "#{@rank} is not allowed"
+    raise ArgumentError, message_s unless SUITES.include? @suite
+    raise ArgumentError, message_r unless RANKS.include? @rank
+  end
+
+  def valid?
+    validate!
+    true
+  rescue ArgumentError
+    false
   end
 end
